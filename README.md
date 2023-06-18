@@ -1,9 +1,8 @@
 # Sonic Fiber Map
-A map highlighting Sonic.net fiber deployments generated from publicly-available street permits. Basis is from ThatDan/sonic_fiber
-Data is currently excavation permits, rather than the temporary occupancy permits that were on Dan's map.
+Intended to be a map of parking citations for the year of 2023. Inspired by ThatDan/sonic_fiber.
 
 ## Demo
-The map itself can be found at https://gratefulbread.github.io/sonic_fiber/
+The map itself can be found at https://gratefulbread.github.io/________/_
 
 ## Disclaimer
 This map is purely speculative based on street permits. I have not verified whether Sonic's fiber service is available on every street highlighted.
