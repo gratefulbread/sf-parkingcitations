@@ -1,0 +1,78 @@
+<head>
+<title>Sonic Fiber Map</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/leaflet.css" />
+</head>
+<body style='margin: 0'>
+<a href="https://github.com/ThatDan/sonic_fiber"><img style="position: absolute; top: 0; right: 0; border: 0; z-index: 1000" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
+<div id='map' style='width: 100%; height: 100%'></div>
+</body>
+<script src="js/leaflet.js"></script>
+<script src="js/wicket.js"></script>
+<script src="js/wicket-leaflet.js"></script>
+<script>
+var map = L.map('map', {
+    center: [37.77, -122.45],
+    zoom: 13
+  });
+L.tileLayer('https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}', {
+  maxZoom: 18,
+  attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>'
+}).addTo(map);
+
+ajax('sonic_fiber.csv', function(response) {
+  var permitsByCNN = {};
+  var wktByCNN = {};
+  var lines = response.split('\n');
+  for (var i=0, l=lines.length; i<l-1; i++) {
+    var cols = lines[i].split('|');
+    if (cols[0]) {
+      wktByCNN[cols[0]] = cols[5];
+      if (!permitsByCNN[cols[0]]) permitsByCNN[cols[0]] = [];
+      permitsByCNN[cols[0]].push(cols[1]);
+    } else {
+      // Log broken data. "Intersection" is for intersection-specific permits. Not very interesting to map. Might be related to running laterals to houses?
+      if (cols[4] != "Intersection") console.log("Missing CNN", cols);
+    }
+  }
+  for (cnn in wktByCNN) {
+    var wkt = new Wkt.Wkt(wktByCNN[cnn]);
+    var line = wkt.toObject();
+    var popup = "<strong>Permits</strong>";
+    var permits = permitsByCNN[cnn];
+    for (var i=0, l=permits.length; i<l; i++) {
+      popup += "<br>"+permits[i];
+      popup += " <a href='http://bsm.sfdpw.org/permitstracker/reports/report.aspx?title=Permit&report=StreetUsePermit&params=permit="+permits[i]+"&ExportPDF=1' target='_blank'>Download</a>";
+    }
+    line.bindPopup(popup);
+    line.addTo(map);
+  }
+      
+      
+    var latlngs = [
+    [38.51, -122.68],
+    [38.77, -122.43],
+    ];  
+
+var polyline = L.polyline(latlngs, {color: 'red'}).addTo(map);
+});
+
+  ajax('sonic_cos.csv', function(response) {
+  var lines = response.split('\n');
+  for (var i=1, l=lines.length; i<l; i++) {
+    var cols = lines[i].split('\t');
+    var point = L.marker([cols[3], cols[2]]);
+    point.bindPopup("<strong>"+cols[0]+"</strong><br>"+cols[1]);
+    point.addTo(map);
+  }
+});
+
+function ajax(url, callback) {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', url, true);
+  xhr.onload = function() {
+    return callback(this.response);
+  };
+  xhr.send();
+}
+</script>
