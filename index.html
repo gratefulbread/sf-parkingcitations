@@ -37,7 +37,7 @@ ajax('sonic_fiber.csv', function(response) {
   }
   for (cnn in wktByCNN) {
     var wkt = new Wkt.Wkt(wktByCNN[cnn]);
-    var line = wkt.toObject();
+    var point = wkt.toObject();
     var popup = "<strong>Permits</strong>";
     var permits = permitsByCNN[cnn];
     for (var i=0, l=permits.length; i<l; i++) {
