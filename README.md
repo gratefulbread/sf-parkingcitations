@@ -2,7 +2,7 @@
 Intended to be a map of parking citations for the year of 2023. Inspired by ThatDan/sonic_fiber.
 
 ## Demo
-The map itself can be found at https://gratefulbread.github.io/________/_
+The map itself can be found [here.](https://gratefulbread.github.io/sf-parkingcitations/)
 
 
 ## Changelog
