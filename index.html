@@ -23,11 +23,13 @@ L.tileLayer('https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}', {
 ajax('sonic_fiber.csv', function(response) {
   var permitsByCNN = {};
   var wktByCNN = {};
+  var violationtype = {};
   var lines = response.split('\n');
   for (var i=0, l=lines.length; i<l-1; i++) {
     var cols = lines[i].split('|');
     if (cols[0]) {
       wktByCNN[cols[0]] = cols[4];
+      violationtype[cols[0]] = cols[2];
       if (!permitsByCNN[cols[0]]) permitsByCNN[cols[0]] = [];
       permitsByCNN[cols[0]].push(cols[1]);
     } else {
@@ -38,11 +40,10 @@ ajax('sonic_fiber.csv', function(response) {
   for (cnn in wktByCNN) {
     var wkt = new Wkt.Wkt(wktByCNN[cnn]);
     var point = wkt.toObject();
-    var popup = "<strong>Permits</strong>";
-    var permits = permitsByCNN[cnn];
+    var popup = "<strong>Violation</strong>";
+    var permits = violationtype[cnn];
     for (var i=0, l=permits.length; i<l; i++) {
       popup += "<br>"+permits[i];
-      popup += " <a href='http://bsm.sfdpw.org/permitstracker/reports/report.aspx?title=Permit&report=StreetUsePermit&params=permit="+permits[i]+"&ExportPDF=1' target='_blank'>Download</a>";
     }
     point.bindPopup(popup);
     point.addTo(map);
