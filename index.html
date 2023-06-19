@@ -38,15 +38,31 @@ ajax('sonic_fiber.csv', function(response) {
     }
   }
   for (cnn in wktByCNN) {
+
     var wkt = new Wkt.Wkt(wktByCNN[cnn]);
     var point = wkt.toObject();
-    var popup = "<strong>Violation</strong>";
+    var permits = permitsByCNN[cnn];
+    
+    var pointOptions = {
+      radius: 5, // Adjust the radius size as needed
+      fillColor: permits.includes("RED ZONE") ? "red" : "green",
+      color: "black",
+      weight: 1,
+      opacity: 1,
+      fillOpacity: 0.8
+    };
+    
+    var pointObject = L.circleMarker(point, pointOptions);
+    
+    
+    
+    var popup = "<strong>aaaaa</strong>";
     var permits = violationtype[cnn];
     for (var i=0, l=permits.length; i<l; i++) {
       popup += "<br>"+permits;
     }
-    point.bindPopup(popup);
-    point.addTo(map);
+    pointObject.bindPopup(popup);
+    pointObject.addTo(map);
   }
 });
 
