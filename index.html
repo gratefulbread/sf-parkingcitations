@@ -43,16 +43,6 @@ ajax('sonic_fiber.csv', function(response) {
     var point = wkt.toObject();
     var permits = permitsByCNN[cnn];
     
-    var pointOptions = {
-      radius: 5, // Adjust the radius size as needed
-      fillColor: permits.includes("RED ZONE") ? "red" : "green",
-      color: "black",
-      weight: 1,
-      opacity: 1,
-      fillOpacity: 0.8
-    };
-    
-    var pointObject = L.circle(point, pointOptions);
     
     
     
@@ -61,8 +51,8 @@ ajax('sonic_fiber.csv', function(response) {
     for (var i=0, l=permits.length; i<l; i++) {
       popup += "<br>"+permits;
     }
-    pointObject.bindPopup(popup);
-    pointObject.addTo(map);
+    point.bindPopup(popup);
+    point.addTo(map);
   }
 });
 
