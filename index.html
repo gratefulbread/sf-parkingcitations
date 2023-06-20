@@ -37,20 +37,17 @@ ajax('sonic_fiber.csv', function(response) {
     }
   }
   for (cnn in wktByCNN) {
+
     var wkt = new Wkt.Wkt(wktByCNN[cnn]);
     var point = wkt.toObject();
     var permits = permitsByCNN[cnn];
     
+    
     var popup = "<strong>Violation Type</strong>";
     var permits = violationtype[cnn];
     popup += "<br>"+permits;
-    
-    L.circle(point, {
-      radius: 5, // Adjust the radius of the circle as needed
-      color: 'red', // Set the color to red
-      fillColor: 'red', // Set the fill color to red
-      fillOpacity: 1, // Set the fill opacity to 1 (solid)
-    }).bindPopup(popup).addTo(map);
+    point.bindPopup(popup);
+    point.addTo(map);
   }
 });
 
