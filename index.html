@@ -45,7 +45,12 @@ ajax('sonic_fiber.csv', function(response) {
     var permits = violationtype[cnn];
     popup += "<br>"+permits;
     
-    L.marker(point).bindPopup(popup).addTo(map);
+    L.circle(point, {
+      radius: 5, // Adjust the radius of the circle as needed
+      color: 'red', // Set the color to red
+      fillColor: 'red', // Set the fill color to red
+      fillOpacity: 1, // Set the fill opacity to 1 (solid)
+    }).bindPopup(popup).addTo(map);
   }
 });
 
