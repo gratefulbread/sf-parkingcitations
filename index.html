@@ -43,6 +43,11 @@ var baseLayers = {
 var overlays = {
   "NO PLATES": noPlatesLayer,
   "Everything Else": otherLayer
+  "Street Clean": strcleanlayer
+  "RES/OT": resotlayer
+  "Meter Out": meteroutlayer
+  "Meter DTN": meterdtnlayer
+  "Yellow Zone": yellowzonelayer
 };
 
 L.control.layers(baseLayers, overlays).addTo(map);
@@ -74,8 +79,18 @@ ajax('sonic_fiber.csv', function(response) {
     popup += "<br>" + violationType;
     point.bindPopup(popup);
     
-    if (violationType === "NO PLATES") {
+    if (violationType === "STR CLEAN") {
+      strcleanlayer.addLayer(point);
+    } else if (violationType === "RES/OT") {
+      resotlayer.addLayer(point);
+    } else if (violationType === "MTR OUT DT") {
+      meteroutlayer.addLayer(point);
+    } else if (violationType === "METER DTN") {
+      meterdtnlayer.addLayer(point);
+    } else if (violationType === "NO PLATES") {
       noPlatesLayer.addLayer(point);
+    } else if (violationType === "YEL ZONE") {
+      yellowzonelayer.addLayer(point);
     } else {
       otherLayer.addLayer(point);
     }
