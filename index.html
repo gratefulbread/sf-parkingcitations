@@ -45,9 +45,7 @@ ajax('sonic_fiber.csv', function(response) {
     var permits = violationtype[cnn];
     popup += "<br>"+permits;
     
-    var marker = L.marker(point);
-    marker.bindPopup(popup);
-    marker.addTo(map);
+    L.marker(point).bindPopup(popup).addTo(map);
   }
 });
 
