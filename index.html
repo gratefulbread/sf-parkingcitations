@@ -28,6 +28,11 @@ var noPlatesLayer = L.geoJSON(null, {
 }).addTo(map);
 
 var otherLayer = L.geoJSON(null).addTo(map);
+var strcleanlayer = L.geoJSON(null).addTo(map);
+var resotlayer = L.geoJSON(null).addTo(map);
+var meterdtnlayer = L.geoJSON(null).addTo(map);
+var meteroutlayer = L.geoJSON(null).addTo(map);
+var yellowzonelayer = L.geoJSON(null).addTo(map);
 
 var baseLayers = {
   "Map View": L.tileLayer('https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}', {
@@ -81,15 +86,20 @@ ajax('sonic_fiber.csv', function(response) {
     
     if (violationType === "STR CLEAN") {
       strcleanlayer.addLayer(point);
-    } else if (violationType === "RES/OT") {
+    }
+    if (violationType === "RES/OT") {
       resotlayer.addLayer(point);
-    } else if (violationType === "MTR OUT DT") {
+    }
+    if (violationType === "MTR OUT DT") {
       meteroutlayer.addLayer(point);
-    } else if (violationType === "METER DTN") {
+    }
+    if (violationType === "METER DTN") {
       meterdtnlayer.addLayer(point);
-    } else if (violationType === "NO PLATES") {
+    }
+    if (violationType === "NO PLATES") {
       noPlatesLayer.addLayer(point);
-    } else if (violationType === "YEL ZONE") {
+    }
+    if (violationType === "YEL ZONE") {
       yellowzonelayer.addLayer(point);
     } else {
       otherLayer.addLayer(point);
