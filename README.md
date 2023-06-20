@@ -10,10 +10,8 @@ The map itself can be found [here.](https://gratefulbread.github.io/sf-parkingci
 
 ## TODO
 - [ ] Write single script for pulling/updating data
-- [ ] and date on map
-- [ ] Add timelapse of permits
-- [ ] Add different color scheme for different permit types.
-- [ ] Investigate if other permits are being processed by other named applicants. i.e. 3rd party contractors.
+- [ ] Different Layer Colors
+	- [ ] Sub layer groups.
 
 ## How To
 Citations are from https://data.sfgov.org/Transportation/SFMTA-Parking-Citations/ab4h-6ztd
