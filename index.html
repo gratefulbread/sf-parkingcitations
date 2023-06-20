@@ -73,25 +73,28 @@ ajax('sonic_fiber.csv', function(response) {
     popup += "<br>" + violationType;
     point.bindPopup(popup);
     
-    if (violationType === "STR CLEAN") {
-      strcleanlayer.addLayer(point);
-    }
-    if (violationType === "RES/OT") {
-      resotlayer.addLayer(point);
-    }
-    if (violationType === "MTR OUT DT") {
-      meteroutlayer.addLayer(point);
-    }
-    if (violationType === "METER DTN") {
-      meterdtnlayer.addLayer(point);
-    }
-    if (violationType === "NO PLATES") {
-      noPlatesLayer.addLayer(point);
-    }
-    if (violationType === "YEL ZONE") {
-      yellowzonelayer.addLayer(point);
-    } else {
-      otherLayer.addLayer(point);
+    switch (violationType) {
+      case "STR CLEAN":
+        strcleanlayer.addLayer(point);
+        break;
+      case "RES/OT":
+        resotlayer.addLayer(point);
+        break;
+      case "MTR OUT DT":
+        meteroutlayer.addLayer(point);
+        break;
+      case "METER DTN":
+        meterdtnlayer.addLayer(point);
+        break;
+      case "NO PLATES":
+        noPlatesLayer.addLayer(point);
+        break;
+      case "YEL ZONE":
+        yellowzonelayer.addLayer(point);
+        break;
+      default:
+        otherLayer.addLayer(point);
+        break;
     }
   }
 });
