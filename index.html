@@ -58,7 +58,10 @@ ajax('sonic_fiber.csv', function(response) {
       point.addTo(everythingElseLayer);
     }
   }
-
+  
+  // Style the NO PLATES layer with red color
+  noPlatesLayer.setStyle({ color: 'red' });
+  
   // Add the layers to the map
   noPlatesLayer.addTo(map);
   everythingElseLayer.addTo(map);
