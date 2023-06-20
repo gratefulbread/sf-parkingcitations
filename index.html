@@ -29,6 +29,24 @@ var noPlatesLayer = L.geoJSON(null, {
 
 var otherLayer = L.geoJSON(null).addTo(map);
 
+var baseLayers = {
+  "Map View": L.tileLayer('https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}', {
+    maxZoom: 18,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>'
+  }),
+  "Satellite View": L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+    maxZoom: 18,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>'
+  })
+};
+
+var overlays = {
+  "NO PLATES": noPlatesLayer,
+  "Everything Else": otherLayer
+};
+
+L.control.layers(baseLayers, overlays).addTo(map);
+
 ajax('sonic_fiber.csv', function(response) {
   var permitsByCNN = {};
   var wktByCNN = {};
