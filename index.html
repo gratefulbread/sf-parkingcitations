@@ -19,8 +19,15 @@ L.tileLayer('https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}', {
   attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>'
 }).addTo(map);
 
-var noPlatesLayer = L.layerGroup();
-var everythingElseLayer = L.layerGroup();
+var noPlatesLayer = L.geoJSON(null, {
+    style: {
+        color: 'red',
+        fillColor: 'red',
+        fillOpacity: 0.5,
+    }
+}).addTo(map);
+
+var otherLayer = L.geoJSON(null).addTo(map);
 
 ajax('sonic_fiber.csv', function(response) {
   var permitsByCNN = {};
@@ -40,31 +47,21 @@ ajax('sonic_fiber.csv', function(response) {
     }
   }
   for (cnn in wktByCNN) {
-
     var wkt = new Wkt.Wkt(wktByCNN[cnn]);
-    var point = wkt.toObject({ color: 'red' });
+    var point = wkt.toObject();
     var permits = permitsByCNN[cnn];
-    
+    var violationType = violationtype[cnn];
     
     var popup = "<strong>Violation Type</strong>";
-    var violationType = violationtype[cnn];
-    popup += "<br>"+violationType;
+    popup += "<br>" + violationType;
     point.bindPopup(popup);
-
-    // Add the point to the corresponding layer based on violation type
+    
     if (violationType === "NO PLATES") {
-      point.addTo(noPlatesLayer);
+      noPlatesLayer.addLayer(point);
     } else {
-      point.addTo(everythingElseLayer);
+      otherLayer.addLayer(point);
     }
   }
-  
-  // Style the NO PLATES layer with red color
-  noPlatesLayer.setStyle({ color: 'red' });
-  
-  // Add the layers to the map
-  noPlatesLayer.addTo(map);
-  everythingElseLayer.addTo(map);
 });
 
 
