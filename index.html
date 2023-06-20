@@ -14,19 +14,12 @@ var map = L.map('map', {
     center: [37.77, -122.45],
     zoom: 13
   });
-L.tileLayer('https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}', {
-  maxZoom: 18,
-  attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>'
-}).addTo(map);
+  L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
+    maxZoom: 18,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>'
+  }).addTo(map);
 
-var noPlatesLayer = L.geoJSON(null, {
-    style: {
-        color: 'red',
-        fillColor: 'red',
-        fillOpacity: 0.5,
-    }
-}).addTo(map);
-
+var noPlatesLayer = L.geoJSON(null).addTo(map);
 var otherLayer = L.geoJSON(null).addTo(map);
 var strcleanlayer = L.geoJSON(null).addTo(map);
 var resotlayer = L.geoJSON(null).addTo(map);
@@ -36,10 +29,6 @@ var yellowzonelayer = L.geoJSON(null).addTo(map);
 
 var baseLayers = {
   "Map View": L.tileLayer('https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}', {
-    maxZoom: 18,
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>'
-  }),
-  "Satellite View": L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
     maxZoom: 18,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>'
   })
