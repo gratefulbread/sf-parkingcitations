@@ -39,7 +39,7 @@ ajax('sonic_fiber.csv', function(response) {
   for (cnn in wktByCNN) {
 
     var wkt = new Wkt.Wkt(wktByCNN[cnn]);
-    var point = wkt.toObject();
+    var point = wkt.toObject({color: 'red'});
     var permits = permitsByCNN[cnn];
     
     
